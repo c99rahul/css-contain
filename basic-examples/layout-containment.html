@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Containment</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      :root {
+        font-size: 120%;
+
+        --containment-hue: 150;
+        --no-containment-hue: 25;
+
+        --containment-text-color: hsl(var(--containment-hue) 50% 40%);
+        --containment-bg-color: hsl(var(--containment-hue) 80% 95%);
+
+        --no-containment-text-color: hsl(var(--no-containment-hue) 95% 50%);
+        --no-containment-bg-color: hsl(var(--no-containment-hue) 95% 95%);
+      }
+
+      .site-wrapper {
+        max-width: 30em;
+      }
+
+      .target-element {
+        padding: 2em;
+        color: var(--no-containment-text-color);
+        background-color: var(--no-containment-bg-color);
+      }
+
+      .target-element,
+      .target-child {
+        padding: 1em;
+        border: 2px dashed;
+        border-radius: 0.5em;
+      }
+
+      .target-element--with-containment {
+        contain: layout;
+        color: var(--containment-text-color);
+        background-color: var(--containment-bg-color);
+      }
+
+      .target-child--floated {
+        float: left;
+      }
+
+      .target-child--fixed {
+        position: fixed;
+        right: 1em;
+      }
+
+      .target-child {
+        margin-top: 1em;
+        line-height: 1;
+      }
+
+      .switch-holder {
+        text-align: center;
+      }
+
+      .switch-holder + .target-element {
+        margin-top: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="switch-holder">
+        <input type="checkbox" id="containment-switch" />
+        <label for="containment-switch">Toggle "layout" containment</label>
+      </div>
+
+      <div class="target-element">
+        <p>
+          This element can be switched from no containment to `layout`,
+          automatically clearing a child's float and including the
+          fixed-positioned child.
+        </p>
+
+        <div class="target-child target-child--floated">float: left</div>
+        <div class="target-child target-child--fixed">position: fixed</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const containmentSwitch = document.querySelector("#containment-switch");
+    const targetElement = document.querySelector(".target-element");
+
+    if (containmentSwitch && targetElement) {
+      containmentSwitch.addEventListener("change", (e) => {
+        if (!e.target.checked) {
+          targetElement.classList.remove("target-element--with-containment");
+        } else {
+          targetElement.classList.add("target-element--with-containment");
+        }
+      });
+    }
+  </script>
+</html>

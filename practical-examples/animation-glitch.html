@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animatino Glitch</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      .animated-content {
+        width: 500px;
+        height: 75px;
+        background-color: yellow;
+        animation: anim-1 2s infinite alternate;
+      }
+
+      @keyframes anim-1 {
+        100% {
+          width: 75px;
+          height: 500px;
+          background-color: red;
+        }
+      }
+
+      .wrapper-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <h2>
+        Animated Content working independently w/o affecting other page contents
+      </h2>
+      <h3>With CSS Containment (Strict)</h3>
+      <div class="wrapper-row">
+        <div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+            architecto alias atque minima esse, aliquam nostrum error id veniam!
+            Obcaecati error accusantium quo veniam voluptatum laudantium facilis
+            natus impedit itaque.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+            est dolorum voluptatum eveniet tempora aperiam, nam voluptas
+            molestiae nostrum laboriosam officiis asperiores voluptatibus
+            officia nihil, repellendus voluptates sunt? Inventore, nostrum!
+          </p>
+          <p>
+            Nihil quae atque, esse doloribus doloremque optio numquam at nisi
+            non eius voluptatum debitis! Ea et enim cumque, voluptatem natus
+            quae vitae ab reiciendis a voluptas nisi pariatur cum perspiciatis.
+          </p>
+          <p>
+            Voluptas labore omnis nobis earum quis, veritatis saepe fugit ad
+            debitis explicabo inventore similique eaque, nulla minus animi?
+            Neque rerum voluptatibus odio impedit nihil asperiores placeat
+            voluptate velit dolorum perferendis.
+          </p>
+        </div>
+        <div class="animated-content-wrapper">
+          <div class="animated-content"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

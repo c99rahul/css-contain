@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Without Layout Containment</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../with-without.css" />
+    <style>
+      :root {
+        font-size: 120%;
+        --contain: none;
+      }
+
+      .intro {
+        max-width: 40em;
+        color: darkblue;
+      }
+
+      .site-wrapper {
+        max-width: 50em;
+      }
+      .grid-wrapper {
+        contain: var(--contain);
+      }
+      .grid {
+        columns: 3;
+        column-gap: 1em;
+      }
+      .grid-item {
+        display: inline-block;
+        padding: 1em;
+        border: 1px dashed;
+        margin-bottom: 1em;
+        border-radius: 0.5em;
+      }
+
+      .grid-item--hl {
+        font-style: italic;
+      }
+
+      .grid-item--hl-none {
+        color: orangered;
+        border-color: orangered;
+      }
+
+      .grid-item--hl-content {
+        color: green;
+        border-color: green;
+      }
+
+      .switch-wrapper {
+        display: inline-flex;
+        gap: 0.5em;
+      }
+
+      .switch-wrapper + .grid-wrapper {
+        margin-top: 2em;
+      }
+      .controls-wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 2em 0;
+      }
+
+      .containment-none {
+        color: orangered;
+      }
+
+      .containment-content {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="grid-wrapper">
+        <p class="intro">
+          Set containment via the select box, then use the "Add an item" button
+          to dynamically inject items. Note that CSS containment changes here
+          are not visually apparent but are observable during performance
+          analysis.
+        </p>
+
+        <div class="controls-wrapper">
+          <button id="trigger">Add an item</button>
+
+          <div class="switch-wrapper">
+            <label for="containment-switch">contain: </label>
+            <select id="containment-switch">
+              <option class="containment-none" value="none">none</option>
+              <option class="containment-content" value="content">
+                content
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid-item">
+            amet sit sit adipiscing ipsum lorem amet amet consectetur amet sit
+            lorem adipiscing elit amet amet elit consectetur
+          </div>
+          <div class="grid-item">
+            consectetur sit consectetur adipiscing sit adipiscing consectetur
+            dolor amet lorem elit dolor elit lorem lorem amet consectetur
+            consectetur dolor lorem ipsum dolor lorem adipiscing sit sit
+            consectetur dolor elit dolor elit elit lorem
+          </div>
+          <div class="grid-item">
+            adipiscing consectetur adipiscing elit lorem consectetur adipiscing
+            lorem lorem ipsum elit amet dolor dolor consectetur adipiscing ipsum
+            sit elit sit lorem elit amet dolor
+          </div>
+          <div class="grid-item">
+            elit sit lorem sit sit dolor lorem ipsum adipiscing ipsum amet amet
+            consectetur adipiscing amet consectetur adipiscing dolor ipsum
+            consectetur sit adipiscing
+          </div>
+          <div class="grid-item">
+            consectetur elit elit ipsum sit adipiscing adipiscing amet ipsum
+            dolor lorem elit lorem sit sit amet lorem elit ipsum adipiscing sit
+            ipsum adipiscing consectetur ipsum consectetur consectetur sit elit
+            adipiscing sit adipiscing elit adipiscing consectetur amet dolor
+            dolor dolor lorem sit dolor consectetur consectetur dolor
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const grid = document.querySelector(".grid");
+    const gridWrapper = document.querySelector(".grid-wrapper");
+
+    const newElementTrigger = document.querySelector("#trigger");
+    const containmentSwitch = document.querySelector("#containment-switch");
+
+    let gridItemHighlighted = "grid-item--hl-none";
+
+    containmentSwitch.addEventListener("change", (e) => {
+      gridWrapper.style.setProperty("--contain", e.target.value);
+      gridItemHighlighted = `grid-item--hl-${e.target.value}`;
+      console.log(e.target.value);
+    });
+
+    function generateRandomSentence() {
+      const words = [
+        "lorem",
+        "ipsum",
+        "dolor",
+        "sit",
+        "amet",
+        "consectetur",
+        "adipiscing",
+        "elit",
+      ];
+
+      // Generate a random number of words (between 5 and 15 for example)
+      const numberOfWords = Math.floor(Math.random() * 36) + 15;
+
+      // Select random words from the array
+      const randomWords = [];
+      for (let i = 0; i < numberOfWords; i++) {
+        const randomIndex = Math.floor(Math.random() * words.length);
+        randomWords.push(words[randomIndex]);
+      }
+
+      // Join the words into a sentence
+      const sentence = randomWords.join(" ");
+
+      return sentence;
+    }
+
+    if (grid && newElementTrigger) {
+      newElementTrigger.addEventListener("click", () => {
+        window.setTimeout(() => {
+          // Create a new grid item
+          const newGridItem = document.createElement("div");
+          newGridItem.className = `grid-item grid-item--hl ${gridItemHighlighted}`;
+          newGridItem.textContent = generateRandomSentence(); // You can customize the content as needed
+
+          // Append the new grid item to the grid
+          grid.insertBefore(newGridItem, grid.firstChild);
+        }, 1000);
+      });
+    }
+  </script>
+</html>

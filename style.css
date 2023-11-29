@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font: 1em/160% sans-serif;
+  margin: 0;
+  background-color: #ddd;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 120%;
+}
+
+p {
+  margin: 0;
+}
+
+input,
+button,
+select {
+  font: inherit;
+}
+
+label {
+  cursor: pointer;
+  user-select: none;
+}
+
+p + p,
+.wrapper-row + .wrapper-row {
+  margin-top: 1.5em;
+}
+
+.site-wrapper {
+  margin: 0 auto;
+  padding: 2em;
+  max-width: 36em;
+  background-color: #fff;
+}

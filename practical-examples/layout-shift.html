@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Shift</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      #trevda {
+        margin: 2em 0;
+        color: red;
+      }
+
+      .cta {
+        padding: 1em 2em;
+        background-color: #07c;
+        display: inline-flex;
+        color: white;
+        margin-bottom: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <p>
+        A quick example to show how layout shifts caused by third-party ads can
+        disrupt the user experience, making it difficult to navigate the site
+        smoothly.
+      </p>
+      <p>
+        The following is a fake third-party ad that loads 1.5 seconds after the
+        page finishes loading, which is a common occurrence with third-party
+        ads.
+      </p>
+      <div id="trevda">Loading...</div>
+
+      <a href="#" class="cta">A sample CTA button...</a>
+
+      <p>
+        The above CTA button will shift down the page due to the layout shift
+        caused by the fake ad placed just it.
+      </p>
+      <p>
+        If a user intends to click the CTA button but it suddenly gets pushed
+        down the page, it creates a poor user experience and could potentially
+        lead to a lost lead for the website.
+      </p>
+      <p>
+        We'll explore ways to fight this shifting problem in a different example
+        soon.
+      </p>
+    </div>
+  </body>
+
+  <script>
+    const content = document.querySelector("#trevda");
+
+    if (content) {
+      setTimeout(() => {
+        content.innerHTML =
+          "<div style='background-color: #e6e; color: white;  font-size: 150%; height: 250px; display: flex; align-items: center; justify-content: center;'>Advertisement</div>";
+      }, 1500);
+    }
+  </script>
+</html>

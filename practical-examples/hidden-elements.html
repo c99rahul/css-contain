@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Elements</title>
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      :root {
+        --contain: none;
+        font-size: 120%;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        font: 1em/160% sans-serif;
+        margin: 0;
+        background-color: #ddd;
+      }
+
+      h1,
+      h2,
+      h3 {
+        line-height: 120%;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      input,
+      button,
+      select {
+        font: inherit;
+      }
+
+      label {
+        cursor: pointer;
+        user-select: none;
+      }
+
+      p + p,
+      .wrapper-row + .wrapper-row {
+        margin-top: 1.5em;
+      }
+
+      .site-wrapper {
+        contain: var(--contain);
+        background-color: #fff;
+      }
+
+      .intro {
+        font-size: 110%;
+      }
+
+      .intro + .switch-wrapper {
+        margin-top: 1em;
+      }
+
+      .switch-wrapper + .details-wrapper {
+        margin-top: 1em;
+      }
+
+      details {
+        padding: 1em;
+        border: 1px solid;
+        border-radius: 0.5em;
+        cursor: pointer;
+        contain: var(--contain);
+      }
+
+      details + details {
+        margin-top: 1.5em;
+      }
+
+      summary + p {
+        margin-top: 1em;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <p class="intro">
+        An example to demonstrate implementation of CSS containment with hidden
+        elements.
+      </p>
+      <div class="switch-wrapper">
+        <label for="containment-switch">contain: </label>
+        <select id="containment-switch">
+          <option class="containment-none" value="none">none</option>
+          <option class="containment-content" value="content">content</option>
+        </select>
+      </div>
+      <div class="details-wrapper">
+        <details>
+          <summary>Lorem ipsum dolor sit amet.</summary>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+            adipisci, ea odit ipsa obcaecati sunt fugiat, asperiores placeat in
+            dolorum accusamus vitae? Debitis pariatur, qui tempore fugit
+            repudiandae quis voluptatem.
+          </p>
+        </details>
+        <details>
+          <summary>Molestiae asperiores illo earum nemo soluta!</summary>
+          <p>
+            Facilis reiciendis eaque saepe deleniti quae blanditiis qui nihil
+            accusamus reprehenderit? Nulla provident vel voluptatum culpa, error
+            consectetur optio illo quaerat exercitationem quas nihil saepe
+            beatae. Eum, maxime iusto. Pariatur?
+          </p>
+        </details>
+        <details>
+          <summary>
+            Corporis quia a amet deleniti eligendi non veniam esse in.
+          </summary>
+          <p>
+            Aut doloribus deleniti dicta. Sint placeat dolore nesciunt enim
+            sunt, earum, temporibus optio sit autem consequatur fugit animi
+            nostrum perspiciatis officia a iste non minus id ipsa voluptatum rem
+            cupiditate.
+          </p>
+        </details>
+        <details>
+          <summary>Similique a quas delectus ut mollitia</summary>
+          <p>
+            Cumque odit magnam quam ex ipsam quos vero sunt, quis voluptatum
+            expedita, autem dolor magni alias laborum laboriosam at atque!
+            Mollitia, rerum? Impedit ut mollitia fuga, perferendis culpa unde
+            quos!
+          </p>
+        </details>
+      </div>
+    </div>
+  </body>
+  <script>
+    const wrapper = document.querySelector(".site-wrapper");
+    const containmentSwitch = document.querySelector("#containment-switch");
+
+    containmentSwitch.addEventListener("change", (e) => {
+      wrapper.style.setProperty("--contain", e.target.value);
+    });
+  </script>
+</html>
